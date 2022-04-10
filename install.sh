@@ -99,7 +99,6 @@ EOT"
 cd
     ./dist/proot -S . /bin/bash -c "apt-get -y install dropbear"
     ./dist/proot -S . /bin/bash -c "echo 'root:trosh$1' | sudo chpasswd"
-    ./dist/proot -S . /bin/bash -c "service dropbear start"
        echo -e "${LIGHTBLUE}
 ████████╗██████╗  ██████╗ ███████╗██╗  ██╗██╗  ██╗ ██████╗ ███████╗████████╗
 ╚══██╔══╝██╔══██╗██╔═══██╗██╔════╝██║  ██║██║  ██║██╔═══██╗██╔════╝╚══██╔══╝
