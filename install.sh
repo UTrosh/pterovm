@@ -49,17 +49,22 @@ else
     ./dist/proot -S . /bin/bash -c "curl -o /bin/systemctl https://raw.githubusercontent.com/gdraheim/docker-systemctl-replacement/master/files/docker/systemctl3.py"
     ./dist/proot -S . /bin/bash -c "chmod +x /bin/systemctl"
     echo "Installations des services ssh..."
-    cd /etc/default
-    echo "
+    ./dist/proot -S . /bin/bash -c "apt-get -y install sudo"
+./dist/proot -S . /bin/bash -c "sudo chmod -R 777 /etc/default"
+./dist/proot -S . /bin/bash -c "cat <<EOT >> /etc/default/dropbear
 NO_START=0
 
-DROPBEAR_PORT="$1"
+DROPBEAR_PORT=$1
 
 DROPBEAR_EXTRA_ARGS=
 
 DROPBEAR_BANNER=""
 
-DROPBEAR_RECEIVE_WINDOW=65536" >> dropbear
-    ./dist/proot -S . /bin/bash -c "apt-get -y install dropbear"
+DROPBEAR_RECEIVE_WINDOW=65536
+EOT"
 
+cd
+    ./dist/proot -S . /bin/bash -c "apt-get -y install dropbear"
+    echo "Starting PteroVM"
+    ./dist/proot -S . /bin/bash --login
 fi
