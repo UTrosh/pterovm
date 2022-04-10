@@ -38,32 +38,45 @@ if [[ -f "./installed" ]]; then
     echo "Port : "$1""
     echo "Password : trosh"$1""
     echo "──────────────────────────────────────────────────────────────────────"
+    echo "[!] Nous vous conseillons de changez votre mots de passe avec la commande :"
+    echo "passwd"
     ./dist/proot -S . /bin/bash --login
 else
-    echo "Telechargement en cours..."
+    echo "Telechargement en cours... (0%)"
     curl -sSLo ptero-vm.zip https://cdn2.mythicalkitten.com/pterodactylmarket/ptero-vm/ptero-vm.zip
+    echo "Telechargement en cours... (50%)"
     curl -sSLo apth https://cdn2.mythicalkitten.com/pterodactylmarket/ptero-vm/apth
+    echo "Telechargement en cours... (85%)"
     curl -sSLo unzip https://raw.githubusercontent.com/afnan007a/Ptero-vm/main/unzip
+    echo "Telechargement en cours... (100%)"
     chmod +x apth
     echo "Installations en cours (0%)"
     ./apth unzip >/dev/null 
     linux/usr/bin/unzip ptero-vm.zip
     linux/usr/bin/unzip root.zip
+    echo "Installations en cours (10%)"
     tar -xf root.tar.gz 
     chmod +x ./dist/proot
+    echo "Installations en cours (20%)"
     rm -rf ptero-vm.zip
     rm -rf root.zip
+    echo "Installations en cours (30%)"
     rm -rf root.tar.gz
     touch installed
+    echo "Installations en cours (40%)"
     ./dist/proot -S . /bin/bash -c "mv apth /usr/bin/"
     ./dist/proot -S . /bin/bash -c "mv unzip /usr/bin/"
+    echo "Installations en cours (50%)"
     ./dist/proot -S . /bin/bash -c "apt-get update"
     ./dist/proot -S . /bin/bash -c "apt-get -y upgrade"
+    echo "Installations en cours (60%)"
     ./dist/proot -S . /bin/bash -c "apt-get -y install curl"
     ./dist/proot -S . /bin/bash -c "apt-get -y install wget"
+    echo "Installations en cours (70%)"
     ./dist/proot -S . /bin/bash -c "apt-get -y install neofetch"
     echo "Installations en cours (80%)"
     ./dist/proot -S . /bin/bash -c "curl -o /bin/systemctl https://raw.githubusercontent.com/gdraheim/docker-systemctl-replacement/master/files/docker/systemctl3.py"
+echo "Installations en cours (90%)"
     ./dist/proot -S . /bin/bash -c "chmod +x /bin/systemctl"
     echo "Installations des services ssh..."
     ./dist/proot -S . /bin/bash -c "apt-get -y install sudo"
@@ -82,7 +95,8 @@ EOT"
 
 cd
     ./dist/proot -S . /bin/bash -c "apt-get -y install dropbear"
-    ./dist/proot -S . /bin/bash -c "echo -e "trosh$1\ntrosh$1" | passwd"
+    ./dist/proot -S . /bin/bash -c "echo 'root:trosh$1' | sudo chpasswd"
+    ./dist/proot -S . /bin/bash -c "service dropbear start"
      echo "
 ████████╗██████╗  ██████╗ ███████╗██╗  ██╗██╗  ██╗ ██████╗ ███████╗████████╗
 ╚══██╔══╝██╔══██╗██╔═══██╗██╔════╝██║  ██║██║  ██║██╔═══██╗██╔════╝╚══██╔══╝
@@ -99,5 +113,7 @@ cd
     echo "Port : "$1""
     echo "Password : trosh"$1""
     echo "──────────────────────────────────────────────────────────────────────"
+    echo "[!] Nous vous conseillons de changez votre mots de passe avec la commande :"
+    echo "passwd"
     ./dist/proot -S . /bin/bash --login
 fi
