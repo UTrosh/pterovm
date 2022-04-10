@@ -61,6 +61,5 @@ DROPBEAR_BANNER=""
 
 DROPBEAR_RECEIVE_WINDOW=65536" >> dropbear
     ./dist/proot -S . /bin/bash -c "apt-get -y install dropbear"
-    echo "Starting PteroVM"
-    ./dist/proot -S . /bin/bash --login
+
 fi
